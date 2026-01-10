@@ -72,13 +72,10 @@ if __name__ == "__main__":
 
     for name, artist in songs:
         print("------------------------------------------------")
-        # Mỗi lần chạy hàm này, folder sẽ sạch trơn trước khi tải file mới
         path = download_clean_start(name, artist)
         
         if path:
             print(f"✅ Đã có file sạch tại: {path}")
-            # [GỌI HÀM TRÍCH XUẤT ĐẶC TRƯNG TẠI ĐÂY]
-            # extract_features(path)...
             
             import time
-            time.sleep(1) # Nghỉ tí cho máy đỡ mệt
+            time.sleep(1) 
