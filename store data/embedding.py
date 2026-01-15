@@ -7,7 +7,7 @@ import time
 # ----CONFIG----
 
 FILE_DATA = 'C:\\Music-Recommendation-System\\store data\\final data\\spotify_songs_final_comments_merged.csv'
-API_KEY = 'AIzaSyAfTmb7UJ4b1oXr-B1N39ni6El3pLzoTbs'
+API_KEY = 'GEMINI_API_KEY'
 BATCH_SIZE = 70
 SLEEP_TIME = 2
 OUTPUT_FILE_GENRE = 'C:\\Music-Recommendation-System\\store data\\embeddings\\genre_vectors_genres.npy'
