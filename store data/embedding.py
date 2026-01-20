@@ -15,6 +15,8 @@ OUTPUT_FILE_LYRIC = 'C:\\Music-Recommendation-System\\store data\\embeddings\\ge
 OUTPUT_FILE_COMMENT = 'C:\\Music-Recommendation-System\\store data\\embeddings\\genre_vectors_comments.npy'
 OUTPUT_FILE_TRACK_NAME = 'C:\\Music-Recommendation-System\\store data\\embeddings\\genre_vectors_tracknames.npy'
 OUTPUT_FILE_TRACK_ARTIST = 'C:\\Music-Recommendation-System\\store data\\embeddings\\genre_vectors_trackartists.npy'
+OUTPUT_FILE_TRACK_AUDIO = 'C:\\Music-Recommendation-System\\store data\\embeddings\\genre_vectors_audio.npy'
+
 
 
 
@@ -88,16 +90,48 @@ def generate_and_save_embeddings(texts,OUTPUT_FILE):
     print(f"✅ HOÀN TẤT! Đã lưu {len(final_array)} vector vào file '{OUTPUT_FILE}'.")
     print(f"Kích thước file: {final_array.shape}")
 
+def save_track_audio(OUTPUT_FILE):
+    csv_path = "C:\\Music-Recommendation-System\\store data\\final data\\spotify_songs_final_comments_merged.csv"
+    # Các cột bạn muốn trích xuất (Đảm bảo tên đúng y hệt trong CSV)
+    feature_cols = [
+        "energy","valence","acousticness","instrumentalness","speechiness"
+    ]
+
+    # 2. ĐỌC DỮ LIỆU
+    print("📂 Đang đọc file CSV...")
+    df = pd.read_csv(csv_path)
+
+    # --- QUAN TRỌNG: ĐỒNG BỘ THỨ TỰ ---
+    # Nếu bạn đã có faiss_id trong CSV, hãy sort theo nó để đảm bảo
+    # dòng 0 trong file npy khớp với faiss_id 0 trong MongoDB.
+    if 'faiss_id' in df.columns:
+        df = df.sort_values(by='faiss_id')
+        print("✅ Đã sắp xếp lại theo faiss_id.")
+
+    # 3. LẤY DỮ LIỆU VÀ XỬ LÝ
+    print("⚙️ Đang trích xuất các cột:", feature_cols)
+    # Chỉ lấy các cột định nghĩa ở trên
+    data = df[feature_cols].values
+
+    final_vectors = data.astype('float32')
+
+    np.save(OUTPUT_FILE_TRACK_AUDIO, final_vectors)
+
+    print(f"🎉 Thành công! Đã lưu {len(final_vectors)} dòng vào '{OUTPUT_FILE_TRACK_AUDIO}'.")
+    print(f"   Kích thước vector (Dimension): {final_vectors.shape[1]}")
+
 # --- CHẠY CHƯƠNG TRÌNH ---
 if __name__ == "__main__":
-    # print("Starting embedding genre")
-    # generate_and_save_embeddings(genres,OUTPUT_FILE_GENRE)
-    # print("Starting embedding lyric")
-    # generate_and_save_embeddings(lyrics,OUTPUT_FILE_LYRIC)
-    # print("Starting embedding comment")
-    # generate_and_save_embeddings(comments,OUTPUT_FILE_COMMENT)
+    print("Starting embedding genre")
+    generate_and_save_embeddings(genres,OUTPUT_FILE_GENRE)
+    print("Starting embedding lyric")
+    generate_and_save_embeddings(lyrics,OUTPUT_FILE_LYRIC)
+    print("Starting embedding comment")
+    generate_and_save_embeddings(comments,OUTPUT_FILE_COMMENT)
     print("Starting embedding track name")
     generate_and_save_embeddings(tracknames,OUTPUT_FILE_TRACK_NAME)
     print("Starting embedding track artist")
     generate_and_save_embeddings(trackartists,OUTPUT_FILE_TRACK_ARTIST)
+    print("Save track audio to npy file")
+    save_track_audio(OUTPUT_FILE_TRACK_AUDIO)
 
