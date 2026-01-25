@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 
 
 
-API_KEY = 'AIzaSyBCqsw-TU9NqhJxr-P1MFNVn0PAHjyQ-uI'
+API_KEY = 'key'
 client = MongoClient("mongodb://localhost:27017/")
 col = client["music_project_db"]["songs"]
 
