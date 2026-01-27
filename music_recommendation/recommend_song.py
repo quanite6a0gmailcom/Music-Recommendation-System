@@ -128,7 +128,7 @@ def search_within_cluster_hybrid(song_id, k=5):
     # Sort theo faiss_id để khớp thứ tự khi map vector
     cluster_songs_cursor = col.find(
         {"cluster_id": cluster_id},
-        {"faiss_id": 1, "track_name": 1, "track_artist": 1, "_id": 0,"playlist_genre":1}
+        {"faiss_id": 1, "track_name": 1, "track_artist": 1, "_id": 1,"playlist_genre":1}
     ).sort("faiss_id", 1)
     
     cluster_songs = list(cluster_songs_cursor)
@@ -181,7 +181,7 @@ def search_within_cluster_hybrid(song_id, k=5):
 def search_in_neighborcluster_hybrid(cluster_id,seed_faiss_id, k=5):
     cluster_songs_cursor = col.find(
         {"cluster_id": cluster_id},
-        {"faiss_id": 1, "track_name": 1, "track_artist": 1, "_id": 0,"playlist_genre":1}
+        {"faiss_id": 1, "track_name": 1, "track_artist": 1, "_id": 1,"playlist_genre":1}
     ).sort("faiss_id", 1)
     
     cluster_songs = list(cluster_songs_cursor)
