@@ -272,7 +272,7 @@ final_prompt = PLAYLIST_NAMING_PROMPT.format(songs=songs_text)
 
 try:
     # 3. Gọi Gemini API
-    API_KEY = 'AIzaSyBOPwRxWTN5ohEm39yvm4DlS0fPk0Rb6W4'
+    API_KEY = 'key'
 
     genai.configure(api_key=API_KEY)
     model = genai.GenerativeModel('gemini-3-flash-preview') # Hoặc model bạn đang dùng
