@@ -12,7 +12,7 @@ all_vectors = np.load("C:\\Music-Recommendation-System\\store data\\embeddings\\
 
 
 
-API_KEY = 'KEY'
+API_KEY = 'key'
 
 genai.configure(api_key=API_KEY)
 

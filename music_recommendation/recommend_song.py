@@ -260,6 +260,8 @@ def recommend_hybrid(song_name):
     for found_song in recommend_list:
         print(f"{found_song['track_name']} - {found_song.get('track_artist', '')} - {found_song.get('playlist_genre', '')} ")
 
+    return recommend_list
+
 def recommend(song_name):
     recommend_list = []
     cluster_songs,local_indices,seed_faiss_id,current_cluster_id = search_within_cluster(song_name,k=10)
@@ -299,7 +301,7 @@ def recommend(song_name):
     for found_song in recommend_list:
         print(f"{found_song['track_name']} - {found_song.get('track_artist', '')} - {found_song.get('playlist_genre', '')} ")
 
-# --- CHẠY THỬ ---
-if __name__ == "__main__":
-    # search_within_cluster("Đừng Làm Trái Tim Anh Đau", k=5)
-    recommend_hybrid("6969227a474d0281c65fc12e")
+# # --- CHẠY THỬ ---
+# if __name__ == "__main__":
+#     # search_within_cluster("Đừng Làm Trái Tim Anh Đau", k=5)
+#     recommend_hybrid("6969227a474d0281c65fc12e")
